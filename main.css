@@ -45,14 +45,11 @@ main {
 
 .name {
   font-size: 3em;
-  font-weight: 900;
-  
-  transition: background-color .8s;
+  font-weight: bold;
 }
 
 .subtext {
   font-size: 2em;
-  font-style: italic;
 }
 
 .content {
@@ -111,16 +108,23 @@ main {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 10px;
+
+  border: 2px solid transparent;
   
-  color: #88001a;
+  color: #e6e9ec;
+  background-color: #a40f1c;
   
   transition: background-color .5s, color .5s;
 }
 
-.cv:hover{
+.cv:hover {
   text-decoration: none;
   color: #e6e9ec;
   background-color: #88001a;
+}
+
+.cv:active {
+  border: 2px solid #303336;
 }
 
 .dot-line {
@@ -175,3 +179,7 @@ footer {
   .extra {flex: 1 auto;}
 }
 
+::selection {
+  color: #e6e9ec;
+  background-color: #88001a;
+}
