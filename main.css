@@ -7,7 +7,7 @@ html {
 body {
   font-family: "Montserrat", sans-serif;
   color: #e6e9ec;
-  /*background-color: #303336;*/
+  background-color: #303336;
 
   margin: 0;
   padding: 0;
@@ -15,6 +15,11 @@ body {
 
   display: flex;
   flex-direction: column;
+
+  background-image: url("resources/tri_BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 p, .subtext {
@@ -24,11 +29,6 @@ p, .subtext {
 
 main {
   flex: 1 0 auto;
-
-  background-image: url("resources/tri_BG.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .title {
