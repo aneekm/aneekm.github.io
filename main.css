@@ -17,6 +17,7 @@ body {
   flex-direction: column;
 
   background-image: url("resources/tri_BG.png");
+  background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -34,18 +35,38 @@ main {
 .title {
   text-align: center;
   
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
   margin: 0;
-  padding: 2em 0;
+  padding: 2em 15px;
+
+  height: 100vh;
+}
+
+.top {
+  margin-bottom: 20%;
+  visibility: hidden;
+}
+
+.bottom {
+  margin-top: 15%;
+  margin-bottom: 15px;
+  color: #ec4339;
 }
 
 .headshot {
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 10%;
 }
 
 .name {
   font-size: 3em;
   font-weight: bold;
+
+  margin-bottom: 1rem;
 }
 
 .subtext {
@@ -169,14 +190,27 @@ footer {
   background-color: #e6e9ec;
 }
 
-@media all and (min-width: 769px){
+@media all and (min-width: 769px) {
   .content {margin: 0 10%;}
+  .title {height: inherit;}
+  .title i {display: none;}
+  .headshot {margin-bottom: 10px;}
+  .name {margin-bottom: inherit;}
   .bio {
     flex: 4 auto;
     padding-bottom: 0;
     padding-right: 5%;
   }
   .extra {flex: 1 auto;}
+}
+
+@media all and (max-height: 767px) {
+  .top {margin-bottom: 10%;}
+  .bottom {margin-top: 4%;}
+}
+
+@media all and (max-height: 575px) {
+  .title i {display: none;}
 }
 
 ::selection {
