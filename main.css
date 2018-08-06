@@ -37,7 +37,7 @@ main {
   
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   
   margin: 0;
@@ -47,12 +47,12 @@ main {
 }
 
 .top {
-  margin-bottom: 20%;
+  margin-bottom: 15%;
   visibility: hidden;
 }
 
 .bottom {
-  margin-top: 15%;
+  margin-top: 10%;
   margin-bottom: 15px;
   color: #ec4339;
 }
@@ -202,11 +202,6 @@ footer {
     padding-right: 5%;
   }
   .extra {flex: 1 auto;}
-}
-
-@media all and (max-height: 767px) {
-  .top {margin-bottom: 10%;}
-  .bottom {margin-top: 4%;}
 }
 
 @media all and (max-height: 575px) {
