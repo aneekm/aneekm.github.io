@@ -37,7 +37,7 @@ main {
   
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   
   margin: 0;
@@ -46,20 +46,10 @@ main {
   height: 100vh;
 }
 
-.top {
-  margin-bottom: 15%;
-  visibility: hidden;
-}
-
-.bottom {
-  margin-top: 10%;
-  margin-bottom: 15px;
-  color: #ec4339;
-}
-
 .headshot {
   border-radius: 5px;
-  margin-bottom: 10%;
+  margin-bottom: 8%;
+  margin-top: 15%;
 }
 
 .name {
@@ -71,6 +61,12 @@ main {
 
 .subtext {
   font-size: 2em;
+}
+
+.bottom {
+  margin-top: 15%;
+  padding-bottom: 20px;
+  color: #ec4339;
 }
 
 .content {
@@ -206,6 +202,7 @@ footer {
 
 @media all and (max-height: 575px) {
   .title i {display: none;}
+  .headshot {margin-top: inherit;}
 }
 
 ::selection {
