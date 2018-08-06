@@ -1,0 +1,176 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #e6e9ec;
+  /*background-color: #303336;*/
+
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+
+p, .subtext {
+  font-family: "Lato", "HelveticaNeue", "Helvetica Neue",
+               Helvetica, Arial, sans-serif;
+}
+
+main {
+  flex: 1 0 auto;
+
+  background-image: url("resources/tri_BG.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title {
+  text-align: center;
+  
+  margin: 0;
+  padding: 2em 0;
+}
+
+.headshot {
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 3em;
+  font-weight: 900;
+  
+  transition: background-color .8s;
+}
+
+.subtext {
+  font-size: 2em;
+  font-style: italic;
+}
+
+.content {
+  display: flex;
+  flex-flow: row wrap;
+  
+  text-align: left;
+  line-height: 1.6;
+
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.bio {
+  flex: 1 100%;
+  width: 70%;
+  padding-bottom: 5%; 
+}
+
+.bio-text {
+  height: 100%;
+}
+
+.bio-text a {
+  text-decoration: none;
+  font-style: oblique;
+  color: #e6e9ec;
+}
+
+.bio-text a:hover {
+  border-bottom: 2px solid #88001a;
+}
+
+.extra {
+  flex: 1 100%;
+  width: 30%;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  padding: 15px;
+
+  color: #303336;
+  background-color: #e6e9ec;
+}
+
+.cv {
+  align-self: center;
+  text-align: center;
+
+  text-decoration: none;
+  font-size: 2em;
+
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  
+  color: #88001a;
+  
+  transition: background-color .5s, color .5s;
+}
+
+.cv:hover{
+  text-decoration: none;
+  color: #e6e9ec;
+  background-color: #88001a;
+}
+
+.dot-line {
+  width: 100%;
+  border-top: 2px dotted #303336;
+}
+
+.links {
+  align-self: center;
+
+  text-align: center;
+
+  margin-top: 1em;
+}
+
+.links a {
+  padding: 0 1%;
+
+  text-decoration: none;
+
+  color: #303336;
+  background-color: #e6e9ec;
+
+  transition: color .5s;
+}
+
+.links a:hover {
+  color: #88001a;
+}
+
+footer {
+  flex-shrink: 0;
+
+  height: 60px;
+  margin-top: 15px;
+  padding-top: 15px;
+
+  text-align: center; 
+  
+  color: #303336;
+  background-color: #e6e9ec;
+}
+
+@media all and (min-width: 769px){
+  .content {margin: 0 10%;}
+  .bio {
+    flex: 4 auto;
+    padding-bottom: 0;
+    padding-right: 5%;
+  }
+  .extra {flex: 1 auto;}
+}
+
