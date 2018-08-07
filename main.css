@@ -183,6 +183,13 @@ main {
   transition: color .5s;
 }
 
+.avoidwrap {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+
 .links a:hover {
   color: #88001a;
 }
