@@ -62,10 +62,25 @@ main {
   font-size: 2em;
 }
 
+@keyframes shakeArrow {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .bottom {
   margin-top: 15%;
   padding-bottom: 20px;
+
   color: #ec4339;
+
+  animation: 1s ease-in-out .5s 3 shakeArrow;
 }
 
 .content {
@@ -188,7 +203,7 @@ footer {
 @media all and (min-width: 769px) {
   .content {margin: 0 10%;}
   .title {height: inherit;}
-  .title i {display: none;}
+  .title i {display: none; animation: none;}
   .headshot {margin-bottom: 10px; margin-top: inherit;}
   .name {margin-bottom: inherit;}
   .bio {
@@ -200,7 +215,7 @@ footer {
 }
 
 @media all and (max-height: 575px) {
-  .title i {display: none;}
+  .title i {display: none; animation: none;}
   .headshot {margin-top: inherit;}
 }
 
