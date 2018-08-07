@@ -159,7 +159,6 @@ main {
 }
 
 .dot-line {
-  width: 100%;
   border-top: 2px dotted #303336;
 }
 
@@ -168,7 +167,7 @@ main {
 
   text-align: center;
   
-  width: 100%;
+  width: 95%;
   margin-top: 1em;
 }
 
@@ -182,11 +181,6 @@ main {
 
   transition: color .5s;
 }
-
-.avoidwrap {
-  display: inline-block;
-}
-
 
 .links a:hover {
   color: #88001a;
