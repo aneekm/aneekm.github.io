@@ -10,4 +10,4 @@ I plan on continously building out the site as I develop my webdev skills, in th
   4. Build a DB and use Hugo to serve the static site generated from the DB (learning some back-end!)
   5. ???
 
-I'll add more steps as I figure them out. 
+ 
