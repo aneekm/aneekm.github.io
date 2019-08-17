@@ -1,0 +1,108 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 100%;
+  color: #303336;
+  background-color: #ffffff;
+
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.title {
+  flex: 1 0 auto;
+
+  text-align: center;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 95%;
+  
+  margin: 0 auto;
+}
+
+.name {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 3em;
+  font-weight: 700;
+  color: #88001a;
+
+  margin: 0;
+}
+
+.subtext {
+  font-family: "Raleway", sans-serif;
+  font-size: 1em;
+  color: #86898c;
+}
+
+.all-links {
+  flex: 0 0 auto;
+
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 15px;
+
+  color: #303336;
+}
+
+.links {
+  align-self: center;
+
+  text-align: center;
+
+  width: 95%;
+  margin-bottom: 2%;
+}
+
+.links a {
+  padding: 0 1%;
+
+  text-decoration: none;
+
+  font-size: 1em;
+  color: #88001a;
+
+  transition: color .3s;
+}
+
+.links a:hover {
+  color: #ec4339;
+}
+
+::selection {
+  color: #ffffff;
+  background-color: #88001a;
+}
+
+@media all and (min-width: 600px) {
+  .name {font-size: 5em;}
+  .subtext {font-size: 1.8em;}
+  .topnav a {font-size: 1.8em;}
+  .links a {font-size: 1.2em;}
+}
+
+@media all and (min-width: 1024px) {
+  .name {font-size: 8em;}
+  .subtext {font-size: 3em;}
+  .topnav a {font-size: 2em;}
+  .links a {font-size: 1.5em;}
+}
