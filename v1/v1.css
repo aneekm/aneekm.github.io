@@ -49,6 +49,8 @@ main {
   border-radius: 5px;
   margin-bottom: 8%;
   margin-top: 15%;
+
+  border: dashed red;
 }
 
 .name {
