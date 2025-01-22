@@ -50,6 +50,11 @@ body {
   color: #86898c;
 }
 
+.subtext span {
+  font-weight: bolder;
+  color: #232f3e;
+}
+
 .all-links {
   flex: 0 0 auto;
 
