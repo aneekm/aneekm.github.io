@@ -91,6 +91,7 @@ function loadTrack(widget, track) {
   widget.load(track.url, {
     auto_play: true,
     visual: false,
+    callback: () => widget.play(),
   });
 }
 
