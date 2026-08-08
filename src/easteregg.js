@@ -1,49 +1,27 @@
 /**
- * Easter egg registry.
+ * Easter egg: the Konami code (↑↑↓↓←→←→B A on desktop, swipe+double-tap
+ * on touch) flips the record to its hidden B-side:
+ *   - drops the needle on SECRET_TRACK (Lido — Murder, not in the playlist)
+ *   - swaps in a session-only "midnight pressing" palette via [data-secret]
+ *   - spins the disc at 45 RPM (0.5s per revolution)
+ * Triggering again toggles the palette/spin back off (music keeps playing).
  *
- * Intended as the single extension point for a future secret: call
- * `registerSecret(keys, handler)` (or import `secretTrigger` for more control)
- * and wire the handler in main.js. Nothing ships wired right now — the
- * mechanism is here so the feature slots in without touching the player or
- * theme modules.
+ * Input handling is konami-js (battle-tested since 2009, keyboard + touch).
+ * We override its default `code` (which would redirect) with a function.
  */
 
-const SEQUENCE = [
-  "ArrowLeft",
-  "ArrowLeft",
-  "ArrowRight",
-  "ArrowRight",
-  "ArrowUp",
-  "ArrowUp",
-  "ArrowDown",
-  "ArrowDown",
-];
+import Konami from "konami";
+import { SECRET_TRACK } from "./tracks.js";
+import { playSecret } from "./player.js";
 
-let listeners = [];
-let idx = 0;
+let secretOn = false;
 
-export function registerSecret(handler) {
-  listeners.push(handler);
-}
-
-function onKeyDown(e) {
-  if (e.key === SEQUENCE[idx]) {
-    idx += 1;
-  } else {
-    idx = e.key === SEQUENCE[0] ? 1 : 0;
-  }
-  if (idx === SEQUENCE.length) {
-    idx = 0;
-    listeners.forEach((fn) => {
-      try {
-        fn();
-      } catch (err) {
-        console.error("secret handler failed", err);
-      }
-    });
-  }
+function flipSecret() {
+  secretOn = !secretOn;
+  document.documentElement.toggleAttribute("data-secret", secretOn);
+  if (secretOn) playSecret(SECRET_TRACK);
 }
 
 export function initEasterEgg() {
-  document.addEventListener("keydown", onKeyDown);
+  new Konami(flipSecret);
 }

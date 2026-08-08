@@ -38,6 +38,29 @@
   --press: 0 1px 0 rgba(0, 0, 0, 0.55), 0 -1px 0 rgba(255, 255, 255, 0.03);
 }
 
+/* Hidden "midnight pressing" palette, unlocked by the Konami code.
+   Session-only — refresh restores the real theme. Sits after the theme
+   blocks so it wins at equal specificity. */
+[data-secret] {
+  --paper: #0e1512;
+  --ink: #e7efe8;
+  --ink-soft: #c3d4c7;
+  --muted: #8fa598;
+  --title: #dcebdd;
+  --accent: #d4b26a;
+  --link: #d4b26a;
+  --link-hover: #f0dda6;
+  --gold: #d4b26a;
+  --card-bg: #121a16;
+  --hairline: rgba(231, 239, 232, 0.12);
+  --dot: rgba(231, 239, 232, 0.05);
+  --grain-opacity: 0.05;
+  --portrait-opacity: 0.1;
+  --portrait-blend: soft-light;
+  --vignette: inset 0 0 140px rgba(0, 0, 0, 0.45);
+  --press: 0 1px 0 rgba(0, 0, 0, 0.55), 0 -1px 0 rgba(255, 255, 255, 0.03);
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { color-scheme: light dark; }
@@ -122,6 +145,9 @@ body {
 .player-btn .disc { transform-box: fill-box; transform-origin: center; }
 .player-btn.playing .disc { animation: spin 2.2s linear infinite; }
 
+/* the secret B-side spins at 45 RPM */
+[data-secret] .player-btn.playing .disc { animation-duration: 0.5s; }
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── track rail (now playing, along the top edge) ────────────── */
@@ -148,6 +174,21 @@ body {
   color: var(--gold);
   flex-shrink: 0;
 }
+
+.track-rail .side-b-chip {
+  display: none;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--gold);
+  border-radius: 3px;
+  padding: 0.14rem 0.42rem;
+  flex-shrink: 0;
+}
+
+[data-secret] .track-rail .side-b-chip { display: inline-block; }
 
 .track-rail .track-title {
   font-family: "Fraunces", Georgia, serif;
@@ -305,6 +346,7 @@ main {
   }
   :root { --portrait-opacity: 0.2; }
   [data-theme="dark"] { --portrait-opacity: 0.1; }
+  [data-secret] { --portrait-opacity: 0.1; }
 }
 
 .eyebrow {

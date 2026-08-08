@@ -16,7 +16,7 @@ const els = {
 
 const state = {
   widget: null,
-  current: -1,
+  current: null,
   playing: false,
 };
 
@@ -75,15 +75,15 @@ function ensureAdapter(initialUrl) {
 function bindWidgetEvents(widget) {
   const Events = window.SC.Widget.Events;
   widget.bind(Events.READY, () => {
-    if (state.current >= 0) widget.play();
+    if (state.current) widget.play();
   });
   widget.bind(Events.PLAY, () => setPlaying(true));
   widget.bind(Events.PAUSE, () => setPlaying(false));
   widget.bind(Events.FINISH, () => {
-    if (state.current >= 0) playTrack(nextIndex());
+    if (state.current) playTrack(nextIndex());
   });
   widget.bind(Events.ERROR, () => {
-    if (state.current >= 0) playTrack(nextIndex());
+    if (state.current) playTrack(nextIndex());
   });
 }
 
@@ -104,19 +104,23 @@ function setPlaying(playing) {
   els.ctlPlay.setAttribute("title", playing ? "Pause" : "Play");
 }
 
-function setCurrent(i) {
-  state.current = i;
-  const t = TRACKS[i];
-  els.trackTitle.textContent = `${t.artist} \u2014 ${t.title}`;
+function setCurrent(track) {
+  state.current = track;
+  els.trackTitle.textContent = `${track.artist} \u2014 ${track.title}`;
   els.rail.classList.add("has-track");
   els.trackTitle.setAttribute(
     "aria-label",
-    `Pause or resume ${t.title} by ${t.artist}`,
+    `Pause or resume ${track.title} by ${track.artist}`,
   );
+  const idx = TRACKS.indexOf(track);
   els.list.querySelectorAll("button").forEach((b, j) => {
-    b.classList.toggle("playing", j === i);
+    b.classList.toggle("playing", j === idx);
   });
-  updateMediaSession(i);
+  updateMediaSession(track);
+}
+
+function currentIndex() {
+  return TRACKS.indexOf(state.current);
 }
 
 function nextIndex() {
@@ -124,16 +128,15 @@ function nextIndex() {
   let n;
   do {
     n = Math.floor(Math.random() * TRACKS.length);
-  } while (n === state.current);
+  } while (TRACKS[n] === state.current);
   return n;
 }
 
-function updateMediaSession(i) {
+function updateMediaSession(track) {
   if (!("mediaSession" in navigator) || typeof MediaMetadata === "undefined") return;
-  const t = TRACKS[i];
   navigator.mediaSession.metadata = new MediaMetadata({
-    title: t.title,
-    artist: t.artist,
+    title: track.title,
+    artist: track.artist,
     album: "the record player",
   });
   navigator.mediaSession.setActionHandler("play", () => state.widget?.play());
@@ -143,24 +146,25 @@ function updateMediaSession(i) {
 }
 
 function prevIndex() {
-  return (state.current - 1 + TRACKS.length) % TRACKS.length;
+  const i = currentIndex();
+  if (i < 0) return Math.floor(Math.random() * TRACKS.length);
+  return (i - 1 + TRACKS.length) % TRACKS.length;
 }
 
 /* ── public-ish API used by UI handlers ───────────────────────── */
 
-function playTrack(i) {
-  const track = TRACKS[i];
+function start(track) {
   if (!adapterPromise) {
     ensureAdapter(track.url)
       .then((widget) => {
-        setCurrent(i);
+        setCurrent(track);
         widget.play();
       })
       .catch((err) => {
         console.error("record player: could not start playback", err);
       });
   } else {
-    setCurrent(i);
+    setCurrent(track);
     ensureAdapter()
       .then((widget) => loadTrack(widget, track))
       .catch((err) => {
@@ -169,8 +173,17 @@ function playTrack(i) {
   }
 }
 
+function playTrack(i) {
+  start(TRACKS[i]);
+}
+
+/** Drop the needle on a track that isn't in the playlist (the secret B-side). */
+export function playSecret(track) {
+  start(track);
+}
+
 function togglePlayback() {
-  if (state.current < 0) {
+  if (!state.current) {
     openDrawer();
     return;
   }
@@ -221,10 +234,10 @@ export function initPlayer() {
   els.btn.addEventListener("click", toggleDrawer);
   els.ctlPlay.addEventListener("click", togglePlayback);
   els.ctlPrev.addEventListener("click", () => {
-    if (state.current >= 0) playTrack(prevIndex());
+    if (state.current) playTrack(prevIndex());
   });
   els.ctlNext.addEventListener("click", () => {
-    if (state.current >= 0) playTrack(nextIndex());
+    if (state.current) playTrack(nextIndex());
   });
   els.trackTitle.addEventListener("click", togglePlayback);
   els.trackTitle.addEventListener("keydown", (e) => {

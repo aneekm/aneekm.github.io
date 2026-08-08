@@ -26,11 +26,6 @@ export const TRACKS = [
     url: "https://soundcloud.com/bonobo/kerala",
   },
   {
-    title: "Murder",
-    artist: "Lido",
-    url: "https://soundcloud.com/lidogotsongs/lido-murder",
-  },
-  {
     title: "glow",
     artist: "Fred again..",
     url: "https://soundcloud.com/fredagain/glow?in=fredagain/sets/ten-days-6",
@@ -51,3 +46,14 @@ export const TRACKS = [
     url: "https://soundcloud.com/kembaland/already",
   },
 ];
+
+/**
+ * The hidden B-side. Not shown in the playlist — only the Konami code
+ * can drop the needle on it. Keep it out of TRACKS so it never shows up
+ * in the drawer or in random rotation.
+ */
+export const SECRET_TRACK = {
+  title: "Murder",
+  artist: "Lido",
+  url: "https://soundcloud.com/lidogotsongs/lido-murder",
+};

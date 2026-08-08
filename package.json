@@ -16,5 +16,8 @@
     "playwright": "^1.62.1",
     "sharp": "^0.34.2",
     "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "konami": "^1.7.0"
   }
 }

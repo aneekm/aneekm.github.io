@@ -32,7 +32,7 @@ const assert = (name, cond) => results.push(`${cond ? "PASS" : "FAIL"}  ${name}`
 assert("theme guard set data-theme", /light|dark/.test(document.documentElement.getAttribute("data-theme")));
 assert("theme toggle present", !!document.getElementById("theme-toggle"));
 assert("player button present", !!document.getElementById("player-btn"));
-assert("playlist populated with 8 tracks", document.querySelectorAll("#playlist button").length === 8);
+assert("playlist populated with 7 tracks", document.querySelectorAll("#playlist button").length === 7);
 
 const drawer = document.getElementById("player-drawer");
 const btn = document.getElementById("player-btn");
@@ -68,6 +68,22 @@ themeBtn.click();
 const after = document.documentElement.getAttribute("data-theme");
 assert("theme toggle flips attribute", before !== after);
 assert("theme persists to localStorage", localStorage.getItem("theme") === after);
+
+const KONAMI = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+KONAMI.forEach((keyCode) =>
+  document.dispatchEvent(new window.KeyboardEvent("keydown", { keyCode })),
+);
+assert(
+  "konami code unlocks data-secret",
+  document.documentElement.hasAttribute("data-secret"),
+);
+KONAMI.forEach((keyCode) =>
+  document.dispatchEvent(new window.KeyboardEvent("keydown", { keyCode })),
+);
+assert(
+  "konami code again toggles data-secret off",
+  !document.documentElement.hasAttribute("data-secret"),
+);
 
 const failed = results.filter((r) => r.startsWith("FAIL"));
 console.log(results.join("\n"));
