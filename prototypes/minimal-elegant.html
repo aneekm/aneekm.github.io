@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Elegant — prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f4efe5;
+  --ink: #2a241d;
+  --ink-soft: #3c342b;
+  --muted: #6f6558;
+  --title: #88001a;
+  --accent: #24436e;
+  --link-hover: #152d50;
+  --gold: #a8843c;
+  --dot: rgba(42, 36, 29, 0.045);
+  --grain-opacity: 0.06;
+}
+[data-theme="dark"] {
+  --paper: #16120d;
+  --ink: #ece0cc;
+  --ink-soft: #d8c9b2;
+  --muted: #a8947b;
+  --title: #f0e5d0;
+  --accent: #1789b7;
+  --link-hover: #5fbfe4;
+  --gold: #d4b26a;
+  --dot: rgba(236, 227, 212, 0.05);
+  --grain-opacity: 0.05;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Newsreader", Georgia, serif;
+  color: var(--ink);
+  background: var(--paper);
+  background-image: radial-gradient(circle at center, var(--dot) 1px, transparent 1px);
+  background-size: 26px 26px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: background-color 0.35s ease;
+}
+.grain {
+  position: fixed; inset: 0; pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+.toggle {
+  position: fixed; top: 1rem; right: 1rem; z-index: 10;
+  width: 2.6rem; height: 2.6rem; border-radius: 999px;
+  display: grid; place-items: center;
+  background: transparent; color: var(--ink-soft);
+  border: 0; cursor: pointer;
+  transition: transform 0.2s ease, color 0.35s ease;
+}
+.toggle:hover { transform: rotate(-8deg) scale(1.05); color: var(--accent); }
+.toggle svg { width: 1.15rem; height: 1.15rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.toggle .moon { display: none; }
+[data-theme="dark"] .toggle .sun { display: none; }
+[data-theme="dark"] .toggle .moon { display: block; }
+main { padding: clamp(3rem, 10vh, 5rem) 1.4rem; }
+.eyebrow {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500; font-size: 0.72rem; letter-spacing: 0.34em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+h1 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 500; font-size: clamp(2.9rem, 9vw, 5rem);
+  letter-spacing: -0.02em; line-height: 1.02;
+  color: var(--title);
+}
+.status {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic; font-weight: 300;
+  font-size: clamp(1.08rem, 2.7vw, 1.4rem);
+  color: var(--muted); margin-top: 1.1rem;
+}
+.bio {
+  font-size: 1.06rem; line-height: 1.72; color: var(--muted);
+  max-width: 34rem; margin: 1.9rem auto 0;
+}
+a.ink {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+a.ink:hover { color: var(--link-hover); border-bottom-color: var(--accent); }
+.links {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 1.5rem; margin-top: 2.4rem;
+}
+.links a {
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--ink-soft); text-decoration: none;
+  transition: color 0.25s ease;
+}
+.links a:hover { color: var(--accent); }
+.links svg { width: 1.55rem; height: 1.55rem; fill: currentColor; }
+.reveal { opacity: 0; animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+.reveal:nth-child(1) { animation-delay: 0.05s; }
+.reveal:nth-child(2) { animation-delay: 0.12s; }
+.reveal:nth-child(3) { animation-delay: 0.2s; }
+.reveal:nth-child(4) { animation-delay: 0.28s; }
+.reveal:nth-child(5) { animation-delay: 0.36s; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+::selection { color: var(--paper); background: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { animation: none; opacity: 1; }
+  .toggle:hover { transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<button class="toggle" id="toggle" aria-label="Switch theme">
+  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</button>
+<main>
+  <p class="eyebrow reveal">Aneek Mukherjee</p>
+  <h1 class="reveal">Hi, I&rsquo;m Aneek.</h1>
+  <p class="status reveal">Currently working on robotics at
+    <a class="ink" href="https://standardbots.com" target="_blank" rel="noopener">Standard Bots</a>
+  </p>
+  <p class="bio reveal">
+    I&rsquo;m a robotics software engineer &mdash; ECE from
+    <a class="ink" href="https://www.cmu.edu" target="_blank" rel="noopener">Carnegie Mellon</a>,
+    formerly <a class="ink" href="https://www.amazonrobotics.com" target="_blank" rel="noopener">Amazon Robotics</a>
+    &mdash; who still clears his weekends for hackathons, music, and games.
+  </p>
+  <nav class="links reveal" aria-label="Links">
+    <a href="#" title="Resume" aria-label="Resume"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></a>
+    <a href="#" title="GitHub" aria-label="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a>
+    <a href="#" title="Devpost" aria-label="Devpost"><svg viewBox="0 0 24 24"><path d="M6.5 3h11l3 9-3 9h-11l-3-9 3-9zm5.5 4.2L8.9 12l3.1 4.8h2.4L13.5 12l1.9-4.8H12z"/></svg></a>
+    <a href="#" title="Email" aria-label="Email"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+    <a href="#" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="#" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+  </nav>
+</main>
+<script>
+(function () {
+  const t = document.getElementById("toggle");
+  t.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+  });
+})();
+</script>
+</body>
+</html>
