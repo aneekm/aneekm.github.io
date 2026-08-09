@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - v3
+      - master
   workflow_dispatch:
 
 permissions:
